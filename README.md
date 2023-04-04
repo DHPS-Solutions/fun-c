@@ -4,7 +4,7 @@ A lightweight functional library for C.
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
-- [ ] Looping
+- [ ] For each
 - [ ] Collecting
 - [ ] Reducing
 - [ ] Filtering
