@@ -2,7 +2,6 @@
  * Authored by Callum Gran 2023.
  * Simple macro to allow for lambda functions in C.
  */
-
 #ifndef LAMBDA_H
 #define LAMBDA_H
 
