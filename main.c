@@ -98,9 +98,10 @@ int main(int argc, char *argv[])
     // Piping from map to foreach
     printf("Piping from map to foreach\n");
 
-    int_array_pipe(arr, 3,
+    int_array_pipe(arr, 4,
         MAP_PIPE, add_two,
         FILTER_PIPE, filter_even,
+        MAP_PIPE, add_one,
         FOREACH_PIPE, print_int
     );
 
