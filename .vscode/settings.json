@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "lambda.h": "c"
+        "lambda.h": "c",
+        "type_traits": "cpp"
     }
 }
