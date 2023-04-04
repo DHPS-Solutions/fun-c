@@ -4,11 +4,11 @@ A lightweight functional library for C.
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
-- [ ] For each
+- [x] For each
 - [ ] Collecting
 - [ ] Reducing
 - [ ] Filtering
-- [ ] Mapping
+- [x] Mapping
 - [ ] Prettier piping
 - Adding more goals as more comes to mind.
 
