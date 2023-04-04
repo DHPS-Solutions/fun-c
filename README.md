@@ -1,5 +1,5 @@
 # fun-c
-A lightweight functional library for C based on the dynamic arraylist from dhps-lib.
+A lightweight functional library for C.
 
 ### Functionality
 - [x] Lambda
