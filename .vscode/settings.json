@@ -3,6 +3,7 @@
     "files.associations": {
         "lambda.h": "c",
         "type_traits": "cpp",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "functional.h": "c"
     }
 }

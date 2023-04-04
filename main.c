@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "functional.h"
+#include "int_functional.h"
 
 void print_int_array(int *arr, int len) {
     for (int i = 0; i < len; i++)
