@@ -68,6 +68,18 @@ int main(int argc, char *argv[])
     
     free(mapped);
 
+    // Filter
+    bool (*filter_even)(int) = LAMBDA(bool, (int i), {
+        return i % 2 == 0;
+    });
+
+    struct int_array_t filtered = INT_FILTER(arr, filter_even);
+
+    printf("Filtered: ");
+    print_int_array(filtered.arr, filtered.len);
+
+    free(filtered.arr);
+
     // Integer pipe
     int (*add_one)(int) = LAMBDA(int, (int i), {
         return i + 1;
@@ -86,8 +98,9 @@ int main(int argc, char *argv[])
     // Piping from map to foreach
     printf("Piping from map to foreach\n");
 
-    int_array_pipe(arr, 2,
-        MAP_PIPE, add_two, 
+    int_array_pipe(arr, 3,
+        MAP_PIPE, add_two,
+        FILTER_PIPE, filter_even,
         FOREACH_PIPE, print_int
     );
 

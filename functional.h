@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 /**
  * Enums to hold the different types of functions.
@@ -28,6 +29,11 @@ struct int_array_t {
 
 typedef void int_consumer(int);
 typedef int int_mapper(int);
+
+/**
+ * Predicate for filtering or matching.
+ */
+typedef bool predicate(void *, void *);
 
 /**
  * Macro to create an lambda function.
@@ -83,6 +89,31 @@ typedef int int_mapper(int);
 })
 
 /**
+ * Macro to iterate and create a filter.
+ * @param array The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define INT_FILTER(array, func)\
+({\
+    int *filter_arr = malloc(sizeof(int) * array.len);\
+    struct int_array_t filtered = {\
+        .arr = filter_arr,\
+        .len = array.len\
+    };\
+    int j = 0;\
+    for (int i = 0; i < array.len; i++) {\
+        if (func(array.arr[i])) {\
+            filtered.arr[j] = array.arr[i];\
+            j++;\
+        }\
+    }\
+    filtered.len = j;\
+    if (filtered.len < array.len)\
+        filtered.arr = realloc(filtered.arr, sizeof(int) * filtered.len);\
+    filtered;\
+})
+
+/**
  * Function to pipe a value into a function.
  * @param value The value to pipe.
  * @param ... The functions to pipe the value through.
@@ -106,6 +137,7 @@ int int_pipe(int value, ...)
 /**
  * Macro to pipe array functions.
  * @param array The array to pipe.
+ * @param pipes The number of functions to pipe.
  * @param ... The functions to pipe the array through.
  * @return The return value of the function.
  */
@@ -125,6 +157,10 @@ struct int_array_t int_array_pipe(struct int_array_t value, int pipes, ...)
             case FOREACH_PIPE: ;
                 void (*foreach_func)(int) = va_arg(args, void (*)(int));
                 FOREACH(value, foreach_func);
+                break;
+            case FILTER_PIPE: ;
+                int (*filter_func)(int) = va_arg(args, int (*)(int));
+                value = INT_FILTER(value, filter_func);
                 break;
             default:
                 break;
