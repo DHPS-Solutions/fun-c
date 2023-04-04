@@ -83,5 +83,14 @@ int main(int argc, char *argv[])
 
     printf("Piped: %d\n", int_pipe(1, add_one, add_two, add_three));
 
+    printf("Piping from map to foreach\n ");
+    
+    array_pipe(arr, 
+        MAP_ENUM, LAMBDA(int, (int i), {
+            return i * 2;
+        }), 
+        FOREACH_ENUM, print_int
+    );
+
     return 0;
 }

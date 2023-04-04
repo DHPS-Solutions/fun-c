@@ -58,8 +58,10 @@ struct array_t {
  */
 #define FOREACH(array, func)\
 ({\
+    printf("FOREACH!\n");\
     for (int i = 0; i < array.len; i++)\
         func(array.arr[i]);\
+    printf("FOREACH!\n");\
 })
 
 /**
@@ -76,6 +78,7 @@ struct array_t {
     };\
     for (int i = 0; i < array.len; i++)\
         mapped.arr[i] = func(array.arr[i]);\
+    printf("MAP!\n");\
     mapped;\
 })
 
@@ -101,18 +104,31 @@ int int_pipe(int value, ...)
 }
 
 /**
- * Macro to pipe a value into a function.
- * @param value The value to pipe.
- * @param ... The functions to pipe the value through.
+ * Macro to pipe array functions.
+ * @param array The array to pipe.
+ * @param ... The functions to pipe the array through.
  * @return The return value of the function.
  */
-// #define PIPE(value, ...)\
-// ({\
-//     va_list args;\
-//     va_start(args, value);\
-//     int choice;\
-//     while ((choice = va_arg(args, void *)) != 0) \
-//         va_arg(args, void *)
-// })
+struct array_t array_pipe(struct array_t value, ...)
+{
+    va_list args;
+    va_start(args, value);
+    int choice = 0;
+    while ((choice = va_arg(args, int)) != 0)
+        switch (choice) {
+            case MAP_ENUM: ;
+                int (*map_func)(int) = va_arg(args, int (*)(int));
+                value = MAP(value, map_func);
+                break;
+            case FOREACH_ENUM: ;
+                void (*foreach_func)(int) = va_arg(args, void (*)(int));
+                FOREACH(value, foreach_func);
+                break;
+            default:
+                break;
+        }
+    va_end(args);
+    return value;
+}
 
 #endif
