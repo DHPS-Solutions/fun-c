@@ -4,12 +4,18 @@ A lightweight functional library for C.
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
-- [x] For each
+- [ ] For each
+  - [x] Integer
+  - [ ] Generic
 - [ ] Collecting
 - [ ] Reducing
 - [ ] Filtering
-- [x] Mapping
+- [ ] Mapping
+  - [x] Integer
+  - [ ] Generic
 - [ ] Prettier piping
+  - [x] Integer
+  - [ ] Generic
 - Adding more goals as more comes to mind.
 
 ### Naming conventions and semantics
