@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
         "lambda.h": "c",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "stdarg.h": "c"
     }
 }

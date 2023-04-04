@@ -11,20 +11,23 @@
 /**
  * Enums to hold the different types of functions.
  */
-#define MAP_ENUM 1
-#define FOREACH_ENUM 2
-#define FILTER_ENUM 3
-#define REDUCE_ENUM 4
+#define MAP_PIPE 1
+#define FOREACH_PIPE 2
+#define FILTER_PIPE 3
+#define REDUCE_PIPE 4
 
 /**
  * Struct to hold an array.
  * @param arr The array.
  * @param len The length of the array.
  */
-struct array_t {
+struct int_array_t {
     int *arr;
     int len;
 };
+
+typedef void int_consumer(int);
+typedef int int_mapper(int);
 
 /**
  * Macro to create an lambda function.
@@ -58,10 +61,8 @@ struct array_t {
  */
 #define FOREACH(array, func)\
 ({\
-    printf("FOREACH!\n");\
     for (int i = 0; i < array.len; i++)\
         func(array.arr[i]);\
-    printf("FOREACH!\n");\
 })
 
 /**
@@ -69,16 +70,15 @@ struct array_t {
  * @param array The array to iterate over.
  * @param func The function to call for each element.
  */
-#define MAP(array, func)\
+#define INT_MAP(array, func)\
 ({\
     int *map_arr = malloc(sizeof(int) * array.len);\
-    struct array_t mapped = {\
+    struct int_array_t mapped = {\
         .arr = map_arr,\
         .len = array.len\
     };\
     for (int i = 0; i < array.len; i++)\
         mapped.arr[i] = func(array.arr[i]);\
-    printf("MAP!\n");\
     mapped;\
 })
 
@@ -109,24 +109,28 @@ int int_pipe(int value, ...)
  * @param ... The functions to pipe the array through.
  * @return The return value of the function.
  */
-struct array_t array_pipe(struct array_t value, ...)
+struct int_array_t int_array_pipe(struct int_array_t value, int pipes, ...)
 {
     va_list args;
-    va_start(args, value);
+    va_start(args, pipes);
     int choice = 0;
-    while ((choice = va_arg(args, int)) != 0)
+    for (int i = 0; i < pipes; i++) {
+
+        choice = va_arg(args, int);
         switch (choice) {
-            case MAP_ENUM: ;
+            case MAP_PIPE: ;
                 int (*map_func)(int) = va_arg(args, int (*)(int));
-                value = MAP(value, map_func);
+                value = INT_MAP(value, map_func);
                 break;
-            case FOREACH_ENUM: ;
+            case FOREACH_PIPE: ;
                 void (*foreach_func)(int) = va_arg(args, void (*)(int));
                 FOREACH(value, foreach_func);
                 break;
             default:
                 break;
         }
+    }
+
     va_end(args);
     return value;
 }

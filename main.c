@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     }, 99.2, 42.3, 44));
 
     // For each
-    struct array_t arr = {
+    struct int_array_t arr = {
         .arr = (int []) { 1, 2, 3, 4, 5 },
         .len = 5
     };
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     printf("\n");
 
     // Map
-    int *mapped = MAP(arr, LAMBDA(int, (int i), {
+    int *mapped = INT_MAP(arr, LAMBDA(int, (int i), {
         return i * 2;
     })).arr;
 
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     
     free(mapped);
 
-    // Pipe
+    // Integer pipe
     int (*add_one)(int) = LAMBDA(int, (int i), {
         return i + 1;
     });
@@ -83,14 +83,15 @@ int main(int argc, char *argv[])
 
     printf("Piped: %d\n", int_pipe(1, add_one, add_two, add_three));
 
-    printf("Piping from map to foreach\n ");
-    
-    array_pipe(arr, 
-        MAP_ENUM, LAMBDA(int, (int i), {
-            return i * 2;
-        }), 
-        FOREACH_ENUM, print_int
+    // Piping from map to foreach
+    printf("Piping from map to foreach\n");
+
+    int_array_pipe(arr, 2,
+        MAP_PIPE, add_two, 
+        FOREACH_PIPE, print_int
     );
+
+    printf("\n");
 
     return 0;
 }
