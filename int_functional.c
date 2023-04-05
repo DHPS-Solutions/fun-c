@@ -97,18 +97,7 @@ struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ..
     }
 
     va_end(args);
-    if (optional.tag == ARR_VAL) {
-        optional.tag = ARR_VAL;
-        optional.m_value = value;
-    } else if (optional.tag == INT_VAL) {
-        optional.tag = INT_VAL;
-        optional.s_value = value.arr[0];
-    } else if (optional.tag == BOOL_VAL) {
-        optional.tag = BOOL_VAL;
-        optional.pred = value.arr[0];
-    } else {
-        optional.tag = ERR_VAL;
-    }
+
     return optional;
 
     err:

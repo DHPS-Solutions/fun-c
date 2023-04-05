@@ -149,6 +149,5 @@ int main(int argc, char *argv[])
         printf("Answer of full function = %d\n", int_arr_ans2.m_value.arr[0]);
     }
 
-
     return 0;
 }
