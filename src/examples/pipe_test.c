@@ -25,10 +25,15 @@ int main()
         MAP_PIPE, LAMBDA(int, (int e), {
             return e * 2;
         }),
-        FOREACH_PIPE, LAMBDA(void, (int e), {
-            printf("Element: '%d'\n", e);
+        REDUCE_PIPE, 0, LAMBDA(int, (int acc, int e), {
+            return acc + e;
         })
+        // FOREACH_PIPE, LAMBDA(void, (int e), {
+        //     printf("Element: '%d'\n", e);
+        // })
     );
+
+    printf("Result: '%d'\n", piped.s_val);
     
     // Free the array
     ARRAY_FREE(arr);

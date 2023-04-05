@@ -132,8 +132,9 @@ struct ret_struct_name in_struct ## _pipe(struct in_struct in, int funcs, ...)\
                 j++;\
                 break;\
             case REDUCE_PIPE: ;\
+                type acc = va_arg(args, type);\
                 type (*reduce_func)(type, type) = va_arg(args, type (*)(type, type));\
-                ret.s_val = REDUCE(type, ret.m_val, va_arg(args, type), reduce_func);\
+                ret.s_val = REDUCE(type, ret.m_val, acc, reduce_func);\
                 ret.tag = S_VAL;\
                 break;\
             case ANY_PIPE: ;\
