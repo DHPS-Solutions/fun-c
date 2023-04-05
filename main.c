@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
     // Piping from map to single to filter
     printf("Piping int array\n");
 
-    struct int_array_option_t int_arr_ans2 = int_array_pipe(arr, 5,
+    struct int_array_option_t int_arr_ans2 = int_array_pipe(arr, 4,
         MAP_PIPE, add_three,
         FOREACH_PIPE, print_int,
         REDUCE_PIPE, sum,
