@@ -27,6 +27,7 @@ struct int_array_option_t {
     uint8_t tag;
     bool pred;
     int s_value;
+    char *err;
     struct int_array_t m_value;
 };
 

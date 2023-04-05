@@ -125,7 +125,30 @@ int main(int argc, char *argv[])
 
     printf("\n");
 
-    printf("Answer of full function = %d\n", int_arr_ans.m_value.arr[0]);
+    if (int_arr_ans.tag == ERR_VAL) {
+        printf("Error: %s\n", int_arr_ans.err);
+    } else {
+        printf("Answer of full function = %d\n", int_arr_ans.m_value.arr[0]);
+    }
+
+    // Piping from map to single to filter
+    printf("Piping int array\n");
+
+    struct int_array_option_t int_arr_ans2 = int_array_pipe(arr, 5,
+        MAP_PIPE, add_three,
+        FOREACH_PIPE, print_int,
+        REDUCE_PIPE, sum,
+        FILTER_PIPE, filter_even
+    );
+
+    printf("\n");
+
+    if (int_arr_ans2.tag == ERR_VAL) {
+        printf("Error: %s\n", int_arr_ans2.err);
+    } else {
+        printf("Answer of full function = %d\n", int_arr_ans2.m_value.arr[0]);
+    }
+
 
     return 0;
 }

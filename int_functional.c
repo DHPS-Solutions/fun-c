@@ -41,6 +41,11 @@ struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ..
         if (j > 0 && choice == MAP_PIPE || choice == FILTER_PIPE) {
             to_free = true;
             to_free_arr = optional.m_value.arr;
+            if (optional.tag == INT_VAL || optional.tag == BOOL_VAL) {
+                free(to_free_arr);
+                optional.err = "Cannot map or filter a single value or predicate.";
+                goto err;
+            }
         }
         switch (choice) {
             case MAP_PIPE: ;
@@ -105,4 +110,8 @@ struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ..
         optional.tag = ERR_VAL;
     }
     return optional;
+
+    err:
+        optional.tag = ERR_VAL;
+        return optional;
 }
