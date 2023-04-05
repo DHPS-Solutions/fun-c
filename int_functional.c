@@ -91,7 +91,6 @@ struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ..
         }
     }
 
-end:
     va_end(args);
     if (optional.tag == ARR_VAL) {
         optional.tag = ARR_VAL;
