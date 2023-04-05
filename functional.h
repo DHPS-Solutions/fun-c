@@ -15,6 +15,13 @@
 #define FOREACH_PIPE 2
 #define FILTER_PIPE 3
 #define REDUCE_PIPE 4
+#define ANY_PIPE 5
+#define ALL_PIPE 6
+
+#define BOOL_VAL 1
+#define INT_VAL 2
+#define ARR_VAL 3
+#define ERR_VAL 255
 
 /**
  * Macro to create an lambda function.

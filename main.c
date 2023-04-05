@@ -95,17 +95,37 @@ int main(int argc, char *argv[])
 
     printf("Piped: %d\n", int_pipe(1, add_one, add_two, add_three));
 
-    // Piping from map to foreach
-    printf("Piping from map to foreach\n");
+    // Reduce
+    int (*sum)(int, int) = LAMBDA(int, (int a, int b), {
+        return a + b;
+    });
 
-    int_array_pipe(arr, 4,
+    printf("Reduced: %d\n", INT_REDUCE(arr, sum));
+
+    // Any match
+    bool (*is_even)(int) = LAMBDA(bool, (int i), {
+        return i % 2 == 0;
+    });
+
+    printf("Any even: %s\n", INT_ANY(arr, is_even) ? "true" : "false");
+
+    // All match
+    printf("All even: %s\n", INT_ALL(arr, is_even) ? "true" : "false");
+
+    // Piping from map to foreach
+    printf("Piping int array\n");
+
+    struct int_array_option_t int_arr_ans = int_array_pipe(arr, 5,
         MAP_PIPE, add_two,
         FILTER_PIPE, filter_even,
         MAP_PIPE, add_one,
-        FOREACH_PIPE, print_int
+        FOREACH_PIPE, print_int,
+        REDUCE_PIPE, sum
     );
 
     printf("\n");
+
+    printf("Answer of full function = %d\n", int_arr_ans.m_value.arr[0]);
 
     return 0;
 }
