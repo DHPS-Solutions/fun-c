@@ -57,4 +57,12 @@ struct struct_name {\
     char *err;\
 };
 
+/**
+ * Macro that creates a function definition for a pipe.
+ * @param ret_struct_name The name of the return struct.
+ * @param in_struct_name The name of the input struct.
+ */
+#define PIPE(ret_struct_name, in_struct_name)\
+struct ret_struct_name in_struct_name##pipe(struct in_struct_name *in, int pipes, ...);
+
 #endif
