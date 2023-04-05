@@ -56,7 +56,7 @@ int main()
     );
 
     // Print the sum
-    printf("Sum of reduction: '%d'\n", piped2.s_val);
+    printf("Sum of reduction: '%d'\n", PIPE_RET_VAL(int, piped2));
 
     // Free the array
     ARRAY_FREE(arr);
@@ -116,7 +116,7 @@ int main()
     );
 
     // Print the sum
-    printf("Sum of reduction: '%s'\n", piped4.s_val);
+    printf("Sum of reduction: '%s'\n", PIPE_RET_VAL(char *, piped4));
 
     // Free the array
     ARRAY_FREE(str_arr);

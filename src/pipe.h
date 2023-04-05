@@ -49,6 +49,8 @@
  * @param BOOL_VAL The boolean value.
  * @param S_VAL The single value.
  * @param M_VAL The multiple value.
+ * @param VOID_VAL The void value.
+ * @param SUM_VAL The sum value.
  * @param ERR_VAL The error value.
  */
 #define BOOL_VAL 1
@@ -85,6 +87,40 @@ struct struct_name {\
     ret_struct.sum_val = 0;\
     ret_struct.m_val = (in);\
     ret_struct.err = NULL;\
+})
+
+/**
+ * Macro that gets the correct value from a pipe.
+ * @param type The type of the value.
+ * @param ret_struct The return struct.
+ */
+#define PIPE_RET_VAL(type, ret_struct)\
+({\
+    void *ret;\
+    switch ((ret_struct).tag) {\
+        case BOOL_VAL:\
+            ret = &(ret_struct).pred;\
+            break;\
+        case S_VAL:\
+            ret = &(ret_struct).s_val;\
+            break;\
+        case M_VAL:\
+            ret = &(ret_struct).m_val;\
+            break;\
+        case VOID_VAL:\
+            ret = NULL;\
+            break;\
+        case SUM_VAL:\
+            ret = &(ret_struct).sum_val;\
+            break;\
+        case ERR_VAL:\
+            ret = &(ret_struct).err;\
+            break;\
+        default:\
+            ret = NULL;\
+            break;\
+    }\
+    *(type *)ret;\
 })
 
 /**
