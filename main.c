@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "functional.h"
 #include "int_functional.h"
 
 void print_int_array(int *arr, int len) {
@@ -133,7 +134,7 @@ int main(int argc, char *argv[])
     // Piping from map to foreach
     printf("Piping int array\n");
 
-    struct int_array_option_t int_arr_ans = int_array_pipe(arr, 5,
+    struct int_pipe_opt_t int_arr_ans = int_array_pipe(arr, 5,
         MAP_PIPE, add_two,
         FILTER_PIPE, filter_even,
         MAP_PIPE, add_one,
@@ -152,7 +153,7 @@ int main(int argc, char *argv[])
     // Piping from map to single to filter
     printf("Piping int array\n");
 
-    struct int_array_option_t int_arr_ans2 = int_array_pipe(arr, 4,
+    struct int_pipe_opt_t int_arr_ans2 = int_array_pipe(arr, 4,
         MAP_PIPE, add_three,
         FOREACH_PIPE, print_int,
         REDUCE_PIPE, sum,
@@ -166,6 +167,31 @@ int main(int argc, char *argv[])
     } else {
         printf("Answer of full function = %d\n", int_arr_ans2.m_value.arr[0]);
     }
+
+    // Generic for each
+    char * hello = "hello";
+    char * world = "world";
+    char * exclamation = "!";
+    struct gen_array_t str_generic_arr = {
+        .arr = (void *[]) { &hello, &world, &exclamation },
+        .len = 3
+    };
+
+    void (*print_str)(char *) = LAMBDA(void, (char *s), {
+        printf("%s ", s);
+    });
+
+    GEN_FOREACH(char *, str_generic_arr, print_str);
+
+    int one = 1;
+    int two = 2;
+    int three = 3;
+    struct gen_array_t int_generic_arr = {
+        .arr = (void *[]) { &one, &two, &three },
+        .len = 3,
+    };
+
+    GEN_FOREACH(int, int_generic_arr, print_int);
 
     return 0;
 }

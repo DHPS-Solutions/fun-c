@@ -21,9 +21,9 @@ int int_pipe(int value, ...)
     return value;
 }
 
-struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ...)
+struct int_pipe_opt_t int_array_pipe(struct int_array_t value, int pipes, ...)
 {
-    struct int_array_option_t optional = {
+    struct int_pipe_opt_t optional = {
         .tag = ARR_VAL,
         .pred = false,
         .s_value = 0,

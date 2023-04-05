@@ -23,7 +23,7 @@ struct int_array_t {
  * @param s_value The value if it is a single value.
  * @param m_value The value if it is an array.
  */
-struct int_array_option_t {
+struct int_pipe_opt_t {
     uint8_t tag;
     bool pred;
     int s_value;
@@ -208,7 +208,7 @@ int int_pipe(int value, ...);
  * @param ... The functions to pipe the array through.
  * @return The return value of the function.
  */
-struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ...);
+struct int_pipe_opt_t int_array_pipe(struct int_array_t value, int pipes, ...);
 
 
 #endif

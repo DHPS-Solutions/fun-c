@@ -54,4 +54,23 @@
 #define ANON(return_type, func_args, func_body, ...)\
     LAMBDA(return_type, func_args, func_body)(__VA_ARGS__)
 
+struct gen_array_t {
+    void **arr;
+    int len;
+};
+
+/**
+ * Macro to create a consumer foeach loop.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_FOREACH(type, gen_array, func) \
+({\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        func(e); \
+    }\
+})
+
 #endif

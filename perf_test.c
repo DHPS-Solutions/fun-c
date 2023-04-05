@@ -63,7 +63,7 @@ double test()
 
     // Time the functional method
     clock_t t2 = clock();
-    struct int_array_option_t piped = int_array_pipe(array, 3, 
+    struct int_pipe_opt_t piped = int_array_pipe(array, 3, 
         MAP_PIPE, map_func,
         FILTER_PIPE, filt_func,
         REDUCE_PIPE, reduce_func
