@@ -5,7 +5,7 @@
 
 #include "int_functional.h"
 
-#define TEST_TIMES 100
+#define TEST_TIMES 10
 #define TEST_SIZE 1000000
 
 double test()

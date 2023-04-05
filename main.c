@@ -112,6 +112,24 @@ int main(int argc, char *argv[])
     // All match
     printf("All even: %s\n", INT_ALL(arr, is_even) ? "true" : "false");
 
+    // None match
+    printf("None even: %s\n", INT_NONE(arr, is_even) ? "true" : "false");
+
+    // Max value
+    printf("Max value: %d\n", INT_MAX(arr));
+
+    // Min value
+    printf("Min value: %d\n", INT_MIN(arr));
+
+    // Sorted
+    printf("Sorted: %s\n", INT_IS_SORTED(arr) ? "true" : "false");
+
+    // Is empty
+    printf("Is empty: %s\n", int_array_pipe(arr, 1, IS_EMPTY_PIPE).pred ? "true" : "false");
+
+    // Is not empty
+    printf("Is not empty: %s\n", int_array_pipe(arr, 1, IS_NOT_EMPTY_PIPE).pred ? "true" : "false");
+
     // Piping from map to foreach
     printf("Piping int array\n");
 

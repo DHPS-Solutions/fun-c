@@ -17,6 +17,12 @@
 #define REDUCE_PIPE 4
 #define ANY_PIPE 5
 #define ALL_PIPE 6
+#define NONE_PIPE 7
+#define MAX_PIPE 8
+#define MIN_PIPE 9
+#define IS_SORTED_PIPE 10
+#define IS_EMPTY_PIPE 11
+#define IS_NOT_EMPTY_PIPE 12
 
 #define BOOL_VAL 1
 #define INT_VAL 2

@@ -91,6 +91,31 @@ struct int_array_option_t int_array_pipe(struct int_array_t value, int pipes, ..
                 optional.pred = INT_ALL(value, all_func);
                 optional.tag = BOOL_VAL;
                 break;
+            case NONE_PIPE: ;
+                bool (*none_func)(int) = va_arg(args, bool (*)(int));
+                optional.pred = INT_NONE(value, none_func);
+                optional.tag = BOOL_VAL;
+                break;
+            case MAX_PIPE: ;
+                optional.s_value = INT_MAX(value);
+                optional.tag = INT_VAL;
+                break;
+            case MIN_PIPE: ;
+                optional.s_value = INT_MIN(value);
+                optional.tag = INT_VAL;
+                break;
+            case IS_SORTED_PIPE: ;
+                optional.pred = INT_IS_SORTED(value);
+                optional.tag = BOOL_VAL;
+                break;
+            case IS_EMPTY_PIPE: ;
+                optional.pred = value.len == 0;
+                optional.tag = BOOL_VAL;
+                break;
+            case IS_NOT_EMPTY_PIPE : ;
+                optional.pred = value.len != 0;
+                optional.tag = BOOL_VAL;
+                break;
             default:
                 break;
         }

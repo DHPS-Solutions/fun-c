@@ -131,6 +131,67 @@ struct int_array_option_t {
     all;\
 })
 
+/**
+ * Macro to iterate and check if no elements satisfy a predicate.
+ * @param array The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define INT_NONE(array, func)\
+({\
+    bool none = true;\
+    for (int i = 0; i < array.len; i++) {\
+        if (func(array.arr[i])) {\
+            none = false;\
+            break;\
+        }\
+    }\
+    none;\
+})
+
+/**
+ * Macro to iterate and find the largest element.
+ * @param array The array to iterate over.
+ */
+#define INT_MAX(array)\
+({\
+    int max = array.arr[0];\
+    for (int i = 1; i < array.len; i++) {\
+        if (array.arr[i] > max)\
+            max = array.arr[i];\
+    }\
+    max;\
+})
+
+/**
+ * Macro to iterate and find the smallest element.
+ * @param array The array to iterate over.
+ */
+#define INT_MIN(array)\
+({\
+    int min = array.arr[0];\
+    for (int i = 1; i < array.len; i++) {\
+        if (array.arr[i] < min)\
+            min = array.arr[i];\
+    }\
+    min;\
+})
+
+
+/**
+ * Macro to check if an array is sorted.
+ * @param array The array to check.
+ */
+#define INT_IS_SORTED(array)\
+({\
+    bool sorted = true;\
+    for (int i = 1; i < array.len; i++) {\
+        if (array.arr[i] < array.arr[i - 1]) {\
+            sorted = false;\
+            break;\
+        }\
+    }\
+    sorted;\
+})
 
 /**
  * Function to pipe a value into a function.
