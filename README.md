@@ -6,9 +6,9 @@ When running the performance test for int arrays, it performs about 10% faster t
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
-- [ ] For each
+- [x] For each
   - [x] Integer
-  - [ ] Generic
+  - [x] Generic
 - [ ] Collecting
 - [ ] Reducing
   - [x] Integer
