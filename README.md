@@ -1,6 +1,8 @@
 # fun-c
 A lightweight functional library for C.
 
+When running the performance test for int arrays, it performs about 10% faster than the non functional equivalent (no clue how???), please explain if you know. Note this is after running 1000 times with no compiler optimization.
+
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
