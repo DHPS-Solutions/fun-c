@@ -182,6 +182,7 @@ int main(int argc, char *argv[])
     });
 
     GEN_FOREACH(char *, str_generic_arr, print_str);
+    printf("\n");
 
     int one = 1;
     int two = 2;
@@ -192,6 +193,18 @@ int main(int argc, char *argv[])
     };
 
     GEN_FOREACH(int, int_generic_arr, print_int);
+    printf("\n");
+
+    // Generic map
+    struct gen_array_t mapped_str = GEN_MAP(char *, str_generic_arr, to_upper);
+
+    GEN_FOREACH(char *, mapped_str, print_str);
+    printf("\n");
+
+    struct gen_array_t mapped_int = GEN_MAP(int, int_generic_arr, add_one);
+
+    GEN_FOREACH(int, mapped_int, print_int);
+    printf("\n");
 
     return 0;
 }

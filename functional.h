@@ -73,4 +73,178 @@ struct gen_array_t {
     }\
 })
 
+/**
+ * Macro to iterate and create a map.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_MAP(type, gen_array, func) \
+({\
+    type *map_arr = malloc(sizeof(type) * gen_array.len);\
+    struct gen_array_t mapped = {\
+        .arr = (void **)map_arr,\
+        .len = gen_array.len\
+    };\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        mapped.arr[i] = malloc(sizeof(type)); \
+        *(type *)mapped.arr[i] = func(e); \
+    }\
+    mapped;\
+})
+
+/**
+ * Macro to iterate and create a filter.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_FILTER(type, gen_array, func) \
+({\
+    type *filter_arr = malloc(sizeof(type) * gen_array.len);\
+    struct gen_array_t filtered = {\
+        .arr = (void **)filter_arr,\
+        .len = 0\
+    };\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e)) { \
+            filtered.arr[filtered.len] = malloc(sizeof(type)); \
+            *(type *)filtered.arr[filtered.len] = e; \
+            filtered.len++; \
+        } \
+    }\
+    filtered;\
+})
+
+/**
+ * Macro to iterate and create a reduce.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_REDUCE(type, gen_array, func, init) \
+({\
+    type acc = init;\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        acc = func(acc, e); \
+    }\
+    acc;\
+})
+
+/**
+ * Macro to iterate and check if any elements match.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_ANY(type, gen_array, func) \
+({\
+    bool any = false;\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e)) { \
+            any = true; \
+            break; \
+        } \
+    }\
+    any;\
+})
+
+/**
+ * Macro to iterate and check if all elements match.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_ALL(type, gen_array, func) \
+({\
+    bool all = true;\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (!func(e)) { \
+            all = false; \
+            break; \
+        } \
+    }\
+    all;\
+})
+
+/**
+ * Macro to iterate and check if no elements match.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to call for each element.
+ */
+#define GEN_NONE(type, gen_array, func) \
+({\
+    bool none = true;\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e)) { \
+            none = false; \
+            break; \
+        } \
+    }\
+    none;\
+})
+
+/**
+ * Macro to iterate and find the max element.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to compare elements.
+ */
+#define GEN_MAX(type, gen_array, func) \
+({\
+    type max = *(type *)gen_array.arr[0];\
+    for (int i = 1; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e, max)) { \
+            max = e; \
+        } \
+    }\
+    max;\
+})
+
+/**
+ * Macro to iterate and find the min element.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to compare elements.
+ */
+#define GEN_MIN(type, gen_array, func) \
+({\
+    type min = *(type *)gen_array.arr[0];\
+    for (int i = 1; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e, min)) { \
+            min = e; \
+        } \
+    }\
+    min;\
+})
+
+/**
+ * Macro to iterate and find the first element that matches.
+ * @param type The type of the array.
+ * @param arr The array to iterate over.
+ * @param func The function to compare elements.
+ */
+#define GEN_FIND(type, gen_array, func) \
+({\
+    type *found = NULL;\
+    for (int i = 0; i < gen_array.len; i++) { \
+        type e = *(type *)gen_array.arr[i]; \
+        if (func(e)) { \
+            found = malloc(sizeof(type)); \
+            *found = e; \
+            break; \
+        } \
+    }\
+    found;\
+})
+
 #endif
