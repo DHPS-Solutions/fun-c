@@ -1,34 +1,19 @@
 # fun-c
-A lightweight functional library for C.
-
-When running the performance test for int arrays, it performs about 10% faster than the non functional equivalent (no clue how???), please explain if you know. Note this is after running 1000 times with no compiler optimization.
+A lightweight generic functional library for C.
 
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
 - [x] For each
-  - [x] Integer
-  - [x] Generic
 - [ ] Collecting
 - [x] Reducing
-  - [x] Integer
-  - [x] Generic
 - [x] Filtering
-  - [x] Integer
-  - [x] Generic
 - [x] Mapping
-  - [x] Integer
-  - [x] Generic
 - [x] Matching
   - [x] Any
-    - [x] Integer
-    - [x] Generic
   - [x] All
-    - [x] Integer
-    - [x] Generic
-- [ ] Prettier piping
-  - [x] Integer
-  - [ ] Generic
+  - [x] None
+- [x] Prettier piping
 - Adding more goals as more comes to mind.
 
 ### Naming conventions and semantics
