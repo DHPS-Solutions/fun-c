@@ -9,8 +9,11 @@ A lightweight functional library for C.
   - [ ] Generic
 - [ ] Collecting
 - [ ] Reducing
+  - [x] Integer
+  - [ ] Generic
 - [ ] Filtering
   - [x] Integer
+  - [ ] Generic
 - [ ] Mapping
   - [x] Integer
   - [ ] Generic
