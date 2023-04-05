@@ -42,6 +42,7 @@
 #define IS_SORTED_PIPE 10
 #define IS_EMPTY_PIPE 11
 #define IS_NOT_EMPTY_PIPE 12
+#define INT_REDUCE_PIPE 13
 
 /**
  * Enums to hold the different types of values.
@@ -54,6 +55,7 @@
 #define S_VAL 2
 #define M_VAL 3
 #define VOID_VAL 4
+#define SUM_VAL 5
 #define ERR_VAL 255
 
 /**
@@ -66,6 +68,7 @@ struct struct_name {\
     uint8_t tag;\
     bool pred;\
     type s_val;\
+    int sum_val;\
     struct array_type m_val;\
     char *err;\
 };
@@ -79,7 +82,7 @@ struct struct_name {\
 ({\
     ret_struct.tag = M_VAL;\
     ret_struct.pred = false;\
-    ret_struct.s_val = 0;\
+    ret_struct.sum_val = 0;\
     ret_struct.m_val = (in);\
     ret_struct.err = NULL;\
 })
@@ -91,7 +94,7 @@ struct struct_name {\
  * @param array_type The type of the elements in the array.
  */
 #define PIPE_DEF(ret_struct_name, in_struct, type)\
-PIPE_RET_T(int_ret_t, int_arr_t, int);\
+PIPE_RET_T(ret_struct_name, in_struct, type);\
 struct ret_struct_name in_struct ## _pipe(struct in_struct in, int funcs, ...)\
 {\
     va_list args;\
@@ -132,10 +135,16 @@ struct ret_struct_name in_struct ## _pipe(struct in_struct in, int funcs, ...)\
                 j++;\
                 break;\
             case REDUCE_PIPE: ;\
-                type acc = va_arg(args, type);\
+                type type_acc = va_arg(args, type);\
                 type (*reduce_func)(type, type) = va_arg(args, type (*)(type, type));\
-                ret.s_val = REDUCE(type, ret.m_val, acc, reduce_func);\
+                ret.s_val = REDUCE(type, ret.m_val, type_acc, reduce_func);\
                 ret.tag = S_VAL;\
+                break;\
+            case INT_REDUCE_PIPE: ;\
+                int int_acc = va_arg(args, int);\
+                int (*int_reduce_func)(int, type) = va_arg(args, int (*)(int, type));\
+                ret.sum_val = REDUCE(int, ret.m_val, int_acc, int_reduce_func);\
+                ret.tag = SUM_VAL;\
                 break;\
             case ANY_PIPE: ;\
                 bool (*any_pred)(type) = va_arg(args, bool (*)(type));\
