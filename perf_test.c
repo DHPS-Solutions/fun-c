@@ -5,7 +5,7 @@
 
 #include "int_functional.h"
 
-#define TEST_TIMES 10
+#define TEST_TIMES 1000
 #define TEST_SIZE 1000000
 
 double test()
@@ -42,13 +42,11 @@ double test()
 
     // Time the standard method
     clock_t t1 = clock();
+    struct int_array_t new_arr; 
+    int j = 0;
+    new_arr.arr = malloc(sizeof(int) * (array2.len));
     for (int i = 0; i < TEST_SIZE; i++) {
         array2.arr[i] = map_func(array2.arr[i]);
-    }
-    struct int_array_t new_arr; 
-    new_arr.arr = malloc(sizeof(int) * (array2.len));
-    int j = 0;
-    for (int i = 0; i < TEST_SIZE; i++) {
         if (filt_func(array2.arr[i])) {
             new_arr.arr[j++] = array2.arr[i];
         }
@@ -61,6 +59,8 @@ double test()
     }
     t1 = clock() - t1;
 
+    free(new_arr.arr);
+
     // Time the functional method
     clock_t t2 = clock();
     struct int_array_option_t piped = int_array_pipe(array, 3, 
@@ -69,6 +69,8 @@ double test()
         REDUCE_PIPE, reduce_func
     );
     t2 = clock() - t2;
+
+    free(piped.m_value.arr);
 
     // printf("Normal method: Time: %f seconds, Value: %d\n" , ((double)t1)/CLOCKS_PER_SEC, val);
     // printf("Functional method: Time: %f seconds, Value: %d\n" , ((double)t2)/CLOCKS_PER_SEC, piped.s_value);
@@ -88,6 +90,6 @@ int main()
     for (int i = 0; i < TEST_TIMES; i++) {
         diff += test();
     }
-    printf("Average difference: %f percent (func is slower)\n" , diff / ((double) TEST_TIMES));
+    printf("Average difference: %f percent (%s)\n" , diff / ((double) TEST_TIMES), diff > 0 ? "functional is slower" : "std is slower");
     return 0;
 }
