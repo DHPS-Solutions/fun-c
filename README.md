@@ -17,6 +17,13 @@ A lightweight functional library for C.
 - [ ] Mapping
   - [x] Integer
   - [ ] Generic
+- [ ] Matching
+  - [ ] Any
+    - [x] Integer
+    - [ ] Generic
+  - [ ] All
+    - [x] Integer
+    - [ ] Generic
 - [ ] Prettier piping
   - [x] Integer
   - [ ] Generic
