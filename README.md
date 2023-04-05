@@ -10,22 +10,22 @@ When running the performance test for int arrays, it performs about 10% faster t
   - [x] Integer
   - [x] Generic
 - [ ] Collecting
-- [ ] Reducing
+- [x] Reducing
   - [x] Integer
-  - [ ] Generic
-- [ ] Filtering
+  - [x] Generic
+- [x] Filtering
   - [x] Integer
-  - [ ] Generic
-- [ ] Mapping
+  - [x] Generic
+- [x] Mapping
   - [x] Integer
-  - [ ] Generic
-- [ ] Matching
-  - [ ] Any
+  - [x] Generic
+- [x] Matching
+  - [x] Any
     - [x] Integer
-    - [ ] Generic
-  - [ ] All
+    - [x] Generic
+  - [x] All
     - [x] Integer
-    - [ ] Generic
+    - [x] Generic
 - [ ] Prettier piping
   - [x] Integer
   - [ ] Generic
