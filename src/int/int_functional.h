@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include "lambda.h"
+#include "anonymous.h"
+#include "pipe.h"
 #include "functional.h"
 
 /**
