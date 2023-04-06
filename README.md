@@ -1,11 +1,12 @@
 # fun-c
 A lightweight generic functional library for C.
 
+A lot of functionality is missing...
+
 ### Functionality
 - [x] Lambda
 - [x] Anonymous function
 - [x] For each
-- [ ] Collecting
 - [x] Reducing
 - [x] Filtering
 - [x] Mapping
