@@ -28,7 +28,7 @@ int main()
     print_split("Filter, map, and print");
 
     // Pipe functions together and print with a foreach
-    struct int_ret_t piped = int_arr_t_pipe(arr, 3, 
+    struct int_ret_t piped = int_arr_t_pipe(&arr, 3, 
         FILTER_PIPE, LAMBDA(bool, (int e), {
             return e % 2 == 0;
         }),
@@ -43,7 +43,7 @@ int main()
     print_split("Filter, map and sum by reduction");
 
     // Pipe functions together and reduce to sum
-    struct int_ret_t piped2 = int_arr_t_pipe(arr, 3, 
+    struct int_ret_t piped2 = int_arr_t_pipe(&arr, 3, 
         FILTER_PIPE, LAMBDA(bool, (int e), {
             return e % 3 == 0;
         }),
@@ -75,7 +75,7 @@ int main()
     print_split("Filter, map, and print");
 
     // Pipe functions together and print with a foreach
-    struct str_ret_t piped3 = str_arr_t_pipe(str_arr, 3, 
+    struct str_ret_t piped3 = str_arr_t_pipe(&str_arr, 3, 
         FILTER_PIPE, LAMBDA(bool, (char *e), {
             return e[0] == 'H';
         }),
@@ -98,7 +98,7 @@ int main()
     char buf[256] = "";
     char *buf_ptr = buf;
 
-    struct str_ret_t piped4 = str_arr_t_pipe(str_arr, 3,
+    struct str_ret_t piped4 = str_arr_t_pipe(&str_arr, 3,
         MAP_PIPE, LAMBDA(char *, (char *e), {
             char *str = strdup(e);
             for (int i = 0; i < strlen(str); i++)

@@ -124,6 +124,19 @@ struct struct_name {\
 })
 
 /**
+ * Macro that frees the memory of an array if it is to be freed.
+ * @param to_free The boolean to check if the array is to be freed.
+ * @param to_free_arr The array to free.
+ */
+#define PIPE_FREE(to_free, to_free_arr)\
+({\
+    if (to_free) {\
+        to_free = false;\
+        free(to_free_arr.vals);\
+    }\
+})
+
+/**
  * Macro that creates a function definition for a pipe.
  * @param ret_struct_name The name of the return struct.
  * @param in_struct_name The name of the input struct.
@@ -143,9 +156,9 @@ struct ret_struct_name in_struct ## _pipe(struct in_struct in, int funcs, ...)\
     struct in_struct to_free_arr;\
     for (int i = 0; i < funcs; i++) {\
         choice = va_arg(args, int);\
-        if (j > 0 && choice == MAP_PIPE || choice == FILTER_PIPE) {\
+        if (j != 0 && (choice == MAP_PIPE || choice == FILTER_PIPE)) {\
             to_free = true;\
-            to_free_arr = ret.m_val;\
+            to_free_arr.vals = ret.m_val.vals;\
             if (ret.tag == S_VAL || ret.tag == BOOL_VAL) {\
                 ARRAY_FREE(ret.m_val);\
                 ret.err = "Cannot map or filter a single value";\
@@ -213,13 +226,12 @@ struct ret_struct_name in_struct ## _pipe(struct in_struct in, int funcs, ...)\
                 ret.err = "Invalid function";\
                 goto err;\
         }\
+        PIPE_FREE(to_free, to_free_arr);\
     }\
     va_end(args);\
     return ret;\
     err:\
         ret.tag = ERR_VAL;\
-        if (to_free)\
-            ARRAY_FREE(to_free_arr);\
         return ret;\
 }
 
