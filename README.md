@@ -1,4 +1,7 @@
 # fun-c
+
+Keep in mind all the code here is super cursed and I'm not quite sure what I was smoking when I made this...
+
 A lightweight generic functional library for C.
 
 A lot of functionality is missing...
